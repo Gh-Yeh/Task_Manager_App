@@ -25,7 +25,7 @@ let currentFilter = "all";
 //Saves the tasks array to localStorage.
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  console.log("Tasks saved to localStorage:", tasks); //debugging!
+  console.log("Tasks saved to localStorage:", tasks); //debbuuging!
 }
 
 //Loads tasks from localStorage when the page opens.
@@ -34,15 +34,46 @@ function loadTasks() {
 
   if (storedTasks) {
     tasks = JSON.parse(storedTasks);
-    console.log("Tasks loaded from localStorage:", tasks); //debugging!
+    console.log("Tasks loaded from localStorage:", tasks); //debbuuging!
   } else {
     tasks = [];
     console.log("No tasks found in localStorage. Starting with an empty list."); //debugging!
   }
 }
 
+function renderTasks() {
+  taskListUL.innerHTML = "";
+
+  tasks.forEach((task) => {
+    const li = document.createElement("li");
+    li.classList.add("taskItem");
+    li.dataset.id = task.id;
+
+    if (task.completed) {
+      li.classList.add("completed");
+    }
+
+    li.innerHTML = `
+            <input type="checkbox" class="task-checkbox" ${
+              task.completed ? "checked" : ""
+            }>
+            <span class="task-text">${task.text}</span>
+            <div class="task-actions">
+                <button class="edit-btn" ${
+                  task.completed ? "disabled" : ""
+                }>Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        `;
+
+    taskListUL.appendChild(li);
+  });
+  console.log("Tasks rendered to page."); //debugging!
+}
+
 //Initial App Setup
 
 document.addEventListener("DOMContentLoaded", () => {
   loadTasks();
+  renderTasks();
 });
