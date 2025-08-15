@@ -45,7 +45,6 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1em;
-  outline: none;
   transition: border-color 0.3s ease;
 }
 
@@ -98,7 +97,7 @@ h1 {
 
 /* This will be added using JS */
 .filterBtns button.active {
-  background-color: #007bff;
+  background-color: #ff4141;
   color: white;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
@@ -111,4 +110,75 @@ h1 {
   min-height: 100px;
   border-top: 1px solid #eee;
   padding-top: 25px;
+}
+.taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+}
+.task-checkbox {
+  margin-right: 15px;
+  min-width: 20px;
+  min-height: 20px;
+  cursor: pointer;
+}
+.task-text {
+  flex-grow: 1;
+  margin-right: 15px;
+  word-break: break-word;
+}
+.task-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.task-actions button {
+  background: none;
+  border: none;
+  color: #ff4141;
+  cursor: pointer;
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-weight: bold;
+}
+
+.task-actions button:hover {
+  background-color: rgba(255, 65, 65, 0.1);
+}
+
+.task-actions .delete-btn {
+  color: #462427;
+}
+
+.task-actions .delete-btn:hover {
+  background-color: rgba(220, 53, 69, 0.15);
+}
+.task-item .edit-input {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid #ff4141;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-right: 15px;
+}
+/* Style for completed tasks for future JS reference*/
+.taskItem.completed {
+  text-decoration: line-through;
+  color: #aaa;
+  background-color: #f0f0f0;
+  opacity: 0.7;
 }
