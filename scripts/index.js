@@ -19,3 +19,30 @@ let tasks = [];
 
 // A variable to keep track of the currently active filter
 let currentFilter = "all";
+
+//Local Storage Functions
+
+//Saves the tasks array to localStorage.
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  console.log("Tasks saved to localStorage:", tasks); //debugging!
+}
+
+//Loads tasks from localStorage when the page opens.
+function loadTasks() {
+  const storedTasks = localStorage.getItem("tasks");
+
+  if (storedTasks) {
+    tasks = JSON.parse(storedTasks);
+    console.log("Tasks loaded from localStorage:", tasks); //debugging!
+  } else {
+    tasks = [];
+    console.log("No tasks found in localStorage. Starting with an empty list."); //debugging!
+  }
+}
+
+//Initial App Setup
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadTasks();
+});
