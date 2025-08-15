@@ -100,4 +100,23 @@ document.addEventListener("DOMContentLoaded", () => {
   loadTasks();
   renderTasks();
   addBtn.addEventListener("click", addTask);
+
+  taskListUL.addEventListener("change", (event) => {
+    if (event.target.classList.contains("task-checkbox")) {
+      const taskId = event.target.closest(".taskItem").dataset.id;
+      console.log(`Checkbox toggled for task ID: ${taskId}`); //debuugging!
+
+      const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+      if (taskIndex !== -1) {
+        tasks[taskIndex].completed = !tasks[taskIndex].completed;
+        console.log(
+          `Task '${tasks[taskIndex].text}' completed status changed to: ${tasks[taskIndex].completed}`
+        ); //debugging!
+
+        saveTasks();
+        renderTasks();
+      }
+    }
+  });
 });
