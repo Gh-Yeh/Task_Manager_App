@@ -119,4 +119,40 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  taskListUL.addEventListener("click", (event) => {
+    const taskItemElement = event.target.closest(".taskItem");
+    if (!taskItemElement) return;
+
+    const taskId = taskItemElement.dataset.id;
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+    if (taskIndex === -1) return; // Task not found, exit
+
+    if (event.target.classList.contains("edit-btn")) {
+      const currentText = tasks[taskIndex].text;
+      const newText = prompt("Edit task:", currentText);
+
+      if (newText !== null && newText.trim() !== "") {
+        tasks[taskIndex].text = newText.trim();
+        saveTasks();
+        renderTasks();
+      } else if (newText !== null && newText.trim() === "") {
+        alert("Task text cannot be empty! Task not updated.");
+      }
+    }
+
+    if (event.target.classList.contains("delete-btn")) {
+      const confirmDelete = confirm(
+        `Are you sure you want to delete "${tasks[taskIndex].text}"?`
+      );
+
+      if (confirmDelete) {
+        tasks = tasks.filter((task) => task.id !== taskId);
+
+        saveTasks();
+        renderTasks();
+      }
+    }
+  });
 });
