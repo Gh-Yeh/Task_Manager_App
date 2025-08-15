@@ -41,6 +41,7 @@ function loadTasks() {
   }
 }
 
+//Diplay the tasks Visually
 function renderTasks() {
   taskListUL.innerHTML = "";
 
@@ -71,9 +72,32 @@ function renderTasks() {
   console.log("Tasks rendered to page."); //debugging!
 }
 
+//Add Task Functionality
+
+function addTask() {
+  const taskText = taskInput.value.trim();
+
+  if (taskText === "") {
+    alert("Please enter a task!");
+    return;
+  }
+
+  const newTask = {
+    id: Date.now().toString(), //unique ID based on current timestamp
+    text: taskText,
+    completed: false,
+  };
+
+  tasks.push(newTask);
+  saveTasks();
+  taskInput.value = "";
+  renderTasks();
+}
+
 //Initial App Setup
 
 document.addEventListener("DOMContentLoaded", () => {
   loadTasks();
   renderTasks();
+  addBtn.addEventListener("click", addTask);
 });
