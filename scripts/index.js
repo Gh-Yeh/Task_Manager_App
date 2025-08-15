@@ -45,7 +45,18 @@ function loadTasks() {
 function renderTasks() {
   taskListUL.innerHTML = "";
 
-  tasks.forEach((task) => {
+  const filteredTasks = tasks.filter((task) => {
+    if (currentFilter === "all") {
+      return true;
+    } else if (currentFilter === "pending") {
+      return !task.completed;
+    } else if (currentFilter === "completed") {
+      return task.completed;
+    }
+    return true;
+  });
+
+  filteredTasks.forEach((task) => {
     const li = document.createElement("li");
     li.classList.add("taskItem");
     li.dataset.id = task.id;
@@ -154,5 +165,25 @@ document.addEventListener("DOMContentLoaded", () => {
         renderTasks();
       }
     }
+  });
+
+  const filterButtons = document.querySelectorAll(".filterBtns button");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+
+      button.classList.add("active");
+
+      if (button.classList.contains("allBtn")) {
+        currentFilter = "all";
+      } else if (button.classList.contains("pendingBtn")) {
+        currentFilter = "pending";
+      } else if (button.classList.contains("completedBtn")) {
+        currentFilter = "completed";
+      }
+
+      renderTasks();
+    });
   });
 });
